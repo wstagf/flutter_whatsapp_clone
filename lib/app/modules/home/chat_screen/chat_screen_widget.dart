@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ChatScreenWidget extends StatefulWidget {
   final String name;
@@ -11,6 +14,16 @@ class ChatScreenWidget extends StatefulWidget {
 }
 
 class _ChatScreenWidgetState extends State<ChatScreenWidget> {
+  File _image;
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -49,7 +62,12 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
                 fit: BoxFit.fitWidth)),
         child: new Column(
           children: <Widget>[
-            new Flexible(child: new Container()),
+            new Expanded(
+                child: new Container(
+              child: _image == null
+                  ? Text('No image selected.')
+                  : Image.file(_image),
+            )),
             new Row(children: <Widget>[
               new Flexible(
                   child: new Container(
@@ -83,7 +101,9 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
                       Icons.mic,
                       color: Colors.white,
                     ),
-                    onPressed: null),
+                    onPressed: () {
+                      getImage();
+                    }),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Theme.of(context).primaryColor,
