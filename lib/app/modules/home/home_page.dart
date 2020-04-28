@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../home/model/chat_item_model.dart';
+import '../home/model/chat_list_model.dart';
+import '../home/mocks/chat_list_mock.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -82,8 +85,75 @@ class _HomePageState extends State<HomePage>
           controller: tabController,
         ),
       ),
-      body: Column(
-        children: <Widget>[],
+      body: TabBarView(
+        controller: tabController,
+        children: [
+          Icon(Icons.camera_alt),
+          ListView.builder(
+            itemBuilder: (context, position) {
+              ChatItemModel chatItem = ChatListMoockup.getChatItem(position);
+
+              return Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.account_circle,
+                          size: 64.0,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      chatItem.name,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 20.0),
+                                    ),
+                                    Text(
+                                      chatItem.messageDate,
+                                      style: TextStyle(color: Colors.black45),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: Text(
+                                    chatItem.mostRecentMessage,
+                                    style: TextStyle(
+                                        color: Colors.black45, fontSize: 16.0),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Divider(),
+                ],
+              );
+            },
+            itemCount: ChatListMoockup.itemCount,
+          ),
+          Icon(Icons.star),
+          Icon(Icons.call),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(fabIcon),
+        backgroundColor: whatsAppGreenLight,
       ),
     );
   }
