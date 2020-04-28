@@ -61,12 +61,59 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
                     "https://i.pinimg.com/originals/8f/ba/cb/8fbacbd464e996966eb9d4a6b7a9c21e.jpg"),
                 fit: BoxFit.fitWidth)),
         child: new Column(
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             new Expanded(
-                child: new Container(
-              child: _image == null
-                  ? Text('No image selected.')
-                  : Image.file(_image),
+                child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    new Container(
+                      color: Colors.red,
+                      alignment: Alignment.centerRight,
+                      width: 150,
+                      child: _image == null
+                          ? Text('No image selected.')
+                          : Image.file(_image),
+                    ),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                    Text('asdasd'),
+                  ],
+                ),
+              ),
             )),
             new Row(children: <Widget>[
               new Flexible(
