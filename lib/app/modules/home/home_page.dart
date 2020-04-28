@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../home/model/chat_item_model.dart';
 import '../home/model/chat_list_model.dart';
 import '../home/mocks/chat_list_mock.dart';
+import 'chat_screen/chat_screen_widget.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -90,62 +91,51 @@ class _HomePageState extends State<HomePage>
         children: [
           Icon(Icons.camera_alt),
           ListView.builder(
-            itemBuilder: (context, position) {
-              ChatItemModel chatItem = ChatListMoockup.getChatItem(position);
+              itemCount: ChatListMoockup.itemCount,
+              itemBuilder: (context, position) {
+                ChatItemModel chatItem = ChatListMoockup.getChatItem(position);
 
-              return Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.account_circle,
-                          size: 64.0,
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(
-                                      chatItem.name,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 20.0),
-                                    ),
-                                    Text(
-                                      chatItem.messageDate,
-                                      style: TextStyle(color: Colors.black45),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 2.0),
-                                  child: Text(
-                                    chatItem.mostRecentMessage,
-                                    style: TextStyle(
-                                        color: Colors.black45, fontSize: 16.0),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
+                //itemBuilder: (context, l) => new Column(
+                return new Column(
+                  children: <Widget>[
+                    new Divider(
+                      height: 10.0,
                     ),
-                  ),
-                  Divider(),
-                ],
-              );
-            },
-            itemCount: ChatListMoockup.itemCount,
-          ),
+                    new ListTile(
+                      leading: new CircleAvatar(
+                        foregroundColor: Theme.of(context).accentColor,
+                        backgroundColor: Colors.grey,
+                        backgroundImage: new NetworkImage(chatItem.avatarUrl),
+                      ),
+                      title: new Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          new Text(
+                            chatItem.name,
+                            style: new TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          new Text(
+                            chatItem.messageDate,
+                            style: new TextStyle(
+                                color: Colors.grey, fontSize: 14.0),
+                          ),
+                        ],
+                      ),
+                      subtitle: new Container(
+                        padding: const EdgeInsets.only(top: 5.0),
+                        child: new Text(chatItem.mostRecentMessage,
+                            style: new TextStyle(
+                                color: Colors.grey, fontSize: 15.0)),
+                      ),
+                      onTap: () => Navigator.of(context)
+                          .push(new MaterialPageRoute(builder: (context) {
+                        return new ChatScreenWidget(
+                            chatItem.name, chatItem.avatarUrl);
+                      })),
+                    )
+                  ],
+                );
+              }),
           Icon(Icons.star),
           Icon(Icons.call),
         ],

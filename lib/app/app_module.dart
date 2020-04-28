@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_whatsapp_clone/app/app_widget.dart';
 import 'package:flutter_whatsapp_clone/app/modules/home/home_module.dart';
 
+import 'modules/home/chat_screen/chat_screen_controller.dart';
+
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        Bind((i) => ChatScreenController()),
         Bind((i) => AppController()),
       ];
 
